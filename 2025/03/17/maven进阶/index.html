@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JAVA学习笔记-maven进阶 | Muite</title><meta name="author" content="Muite"><meta name="copyright" content="Muite"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="分模块开发与设计分模块将我们之前SSM中所做的项目分解为多个模块，每个模块专注于完成某一组相关的功能或职责。比如分成pojo、controller、service、dao。（仅举例） 模块间通过接口相互作用 分模块的母的是提高代码的可维护性、复用性和可测试性 特点：  高内聚低耦合：模块内功能紧密相关，模块间的依赖尽可能少 代码重用：模块可以在不同的项目中重复使用 易于维护：模块化的结构使得代码更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA学习笔记-maven进阶">
+<meta property="og:url" content="https://mutesniper.github.io/2025/03/17/maven%E8%BF%9B%E9%98%B6/index.html">
+<meta property="og:site_name" content="Muite">
+<meta property="og:description" content="分模块开发与设计分模块将我们之前SSM中所做的项目分解为多个模块，每个模块专注于完成某一组相关的功能或职责。比如分成pojo、controller、service、dao。（仅举例） 模块间通过接口相互作用 分模块的母的是提高代码的可维护性、复用性和可测试性 特点：  高内聚低耦合：模块内功能紧密相关，模块间的依赖尽可能少 代码重用：模块可以在不同的项目中重复使用 易于维护：模块化的结构使得代码更">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg">
+<meta property="article:published_time" content="2025-03-17T13:12:34.000Z">
+<meta property="article:modified_time" content="2025-03-17T13:12:22.557Z">
+<meta property="article:author" content="Muite">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="note">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "JAVA学习笔记-maven进阶",
+  "url": "https://mutesniper.github.io/2025/03/17/maven%E8%BF%9B%E9%98%B6/",
+  "image": "https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg",
+  "datePublished": "2025-03-17T13:12:34.000Z",
+  "dateModified": "2025-03-17T13:12:22.557Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Muite",
+      "url": "https://mutesniper.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mutesniper.github.io/2025/03/17/maven%E8%BF%9B%E9%98%B6/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JAVA学习笔记-maven进阶',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/1990ee2c41564e328f35ac72f555f170.jpeg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" onerror="this.onerror=null;this.src='/null'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">JAVA学习笔记-maven进阶</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">JAVA学习笔记-maven进阶</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-03-17T13:12:34.000Z" title="Created 2025-03-17 21:12:34">2025-03-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-03-17T13:12:22.557Z" title="Updated 2025-03-17 21:12:22">2025-03-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java-note/">java-note</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="分模块开发与设计"><a href="#分模块开发与设计" class="headerlink" title="分模块开发与设计"></a>分模块开发与设计</h1><p>分模块将我们之前SSM中所做的项目分解为多个模块，每个模块专注于完成某一组相关的功能或职责。比如分成pojo、controller、service、dao。（仅举例）</p>
+<p><strong>模块间通过接口相互作用</strong></p>
+<p>分模块的母的是提高代码的可维护性、复用性和可测试性</p>
+<p>特点：</p>
+<ul>
+<li>高内聚低耦合：模块内功能紧密相关，模块间的依赖尽可能少</li>
+<li>代码重用：模块可以在不同的项目中重复使用</li>
+<li>易于维护：模块化的结构使得代码更容易理解和维护</li>
+</ul>
+<h1 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h1><p>如果将各个模块独立，那么在一个模块进行改动时，其他模块不一定能适应它的修改。于是我们用聚合的思想，用一个额外的模块将其余模块都管理起来，对子模块统一操作(编译、打包等)，这个模块不需要写代码，只要pom.xml。</p>
+<p>聚合不仅可以解决上述问题，还能够快速地构建maven工程。</p>
+<p>方法：</p>
+<ul>
+<li><p>我们给这个模块的<code>pom.xml</code>文件中加上：<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code>，表示这个模块专门用来管理，只提供pom.xml文件。</p>
+</li>
+<li><p>再用<code>&lt;module&gt;模块名&lt;/module&gt;</code>，将剩余模块管理起来。再将所有<code>&lt;module&gt;&lt;/module&gt;</code>用<code>&lt;modules&gt;&lt;/modules&gt;</code>包起来</p>
+</li>
+</ul>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>如果模块之间使用的依赖版本不同，容易出现不兼容的情况。</p>
+<p>于是我们用一个父模块将所有模块需要的依赖管理起来：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependenties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	...</span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>即只需要在<dependenties>外套一层<dependencyManagement>。</p>
+<p>在父模块中写明版本，那么子模块在用的时候就只需要声名需要的依赖，而不需要具体到它的版本了。</p>
+<p>不仅是依赖，插件也是如此：只要用<pluginManagement>标签将<plugins>标签包起来即可</p>
+<p>当然，还要让父子模块联系起来：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactedId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactedId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span> <span class="comment">&lt;!--这里是父模块的version，不是依赖的version --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>父模块的pom文件路径<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>虽然继承和聚合的父工程可以使用两个不同的模块，但是还是用一个父模块统一管理。</p>
+<h2 id="继承和聚合的区别"><a href="#继承和聚合的区别" class="headerlink" title="继承和聚合的区别"></a>继承和聚合的区别</h2><p>最重要的一点：继承是继承父模块的配置信息；聚合是用来快速构建的。</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h2><p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.1.9<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	...</span><br><span class="line">	...</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="内置属性"><a href="#内置属性" class="headerlink" title="内置属性"></a>内置属性</h2><p>在pom.xml中有一些内置属性，不需要自定义配置</p>
+<p>调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;version&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h1><ul>
+<li><p>SNAPSHOT:快照版</p>
+</li>
+<li><p>RELEASE：发布版本</p>
+</li>
+<li><p>不同企业用的可能不同</p>
+</li>
+</ul>
+<h1 id="资源配置"><a href="#资源配置" class="headerlink" title="资源配置"></a>资源配置</h1><p>上面的&lt;属性&gt;中已经讲了pom.xml调用自定义的属性。</p>
+<p>那么现在要让properties调用pom.xml定义的属性，如下来做：（以jdbc.rul为例）</p>
+<ul>
+<li><p>还是先把jdbc.url写入<properties>标签中</p>
+</li>
+<li><p>使配置文件能够加载pom属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">directory</span>&gt;</span>resources文件夹所在路径<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用格式还是${jdbc.url}</p>
+</li>
+</ul>
+<h1 id="私服"><a href="#私服" class="headerlink" title="私服"></a>私服</h1><p>操作较为复杂，自行查阅或ai。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://mutesniper.github.io">Muite</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://mutesniper.github.io/2025/03/17/maven%E8%BF%9B%E9%98%B6/">https://mutesniper.github.io/2025/03/17/maven%E8%BF%9B%E9%98%B6/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JAVA/">JAVA</a><a class="post-meta__tags" href="/tags/note/">note</a></div><div class="post-share"><div class="social-share" data-image="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/03/17/linux/" title="学习笔记-Linux"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">学习笔记-Linux</div></div><div class="info-2"><div class="info-item-1">初识linuxLinux内核linux系统的组成如下：  Linux系统内核  系统级应用程序  内核提供系统最核心的功能，如：调度CPU、调度内存、调度文件系统、调度网络通讯、调度IO等。  系统级应用程序，可以理解为出厂自带程序，可供用户快速上手操作系统，如：文件管理器、任务管理器、图片查看、音乐播放   ![屏幕截图 2025-03-15 134435](C:\Users\14693\Desktop\Screenshots\屏幕截图 2025-03-15 134435.png) 虚拟机  通过快照可以实现虚拟机状态回滚。 Linux基础命令Linux的目录结构Linux的目录结构是一个属性结构。Linux没有盘符的概念，只有一个根目录**&#x2F;**...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/17/List/" title="JAVA学习笔记-集合(待更新)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-集合(待更新)</div></div><div class="info-2"><div class="info-item-1">ArrayList 数组可以存储基本数据类型和引用数据类型，集合只能存储引用数据类型，如果要存储基本数据类型，必须要打包成包装类次啊能存储。  成员方法 添加元素，返回值表示是否添加成功  1boolean add(E e)   删除指定元素,返回值表示是否删除成功  1boolean remove(E e)   删除指定索引的元素,返回被删除的元素  1E remove(int index)   修改指定索引下的元素,返回原来的元素  1E set(int index,E e)   获取指定索引的元素  1E get(int index)   返回集合的长度  1int size()    LinkedList 底层数据结构是双向链表。这使LinkedList的查询慢、增删快。但如果查询的是首尾元素也很快  LinkedList特有的API（用到很少，主要还是collection和list中的方法）  在该列表开头插入指定元素  1public void addFirst(E e)     将指定的元素追加到此列表的末尾  1public void addLast(E...</div></div></div></a><a class="pagination-related" href="/2025/03/17/String/" title="JAVA学习笔记-String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-String</div></div><div class="info-2"><div class="info-item-1">String:特性： 内容不会发生改变，它的对象在创建后不能被更改。如果进行修改则会创建一个新的字符串变量。 由于String对象不可变，所以它是线程安全的。  创建方法： 直接赋值： 1String name=&quot;... &quot;;  构造方法： 1234public String()public String(String original)public String(char[] chs)public String (byte[] chs)  方法： 获取长度：1str.length() 查找子串:1234//返回第一个指定字串的索引str.indexOf...</div></div></div></a><a class="pagination-related" href="/2025/03/17/MyBatis/" title="JAVA学习笔记-MyBatis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-MyBatis</div></div><div class="info-2"><div class="info-item-1">简介MyBatis是持久层框架（和数据库进行交互的框架） MyBatis 不像 Hibernete 等这些全自动框架，它把关键的SQL部分交给程序员自己编写，而不是自动生成  HelloWorld步骤：  导入mybatis依赖  配置数据源  编写javabean对应数据库一个表模型  以前：Dao接口–&gt;Dao实现  。–&gt;标注@Repository注解 现在：Mapper接口–&gt;Mapper.xml实现 ,–&gt;标注@Mapper注解 （安装mybatisx插件自动为mapper类生成mapper文件，我们只需要在mapper文件中配置方法的sql语句）  告诉mybatis去哪里找mapper文件：mybatis.mapper-locations=classpath:mapper/**.xml   mapper接口： 1234@Mapper //告诉spring，这是MyBatis操作数据库用的接口public interface EmpMapper &#123;    Emp getEmpById(Integer...</div></div></div></a><a class="pagination-related" href="/2025/03/17/maven%E5%9F%BA%E7%A1%80/" title="JAVA学习笔记-maven基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-maven基础</div></div><div class="info-2"><div class="info-item-1">简介在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons...</div></div></div></a><a class="pagination-related" href="/2025/03/17/springboot/" title="JAVA学习笔记-springBoot"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-springBoot</div></div><div class="info-2"><div class="info-item-1">简介SpringBoot 帮我们简单、快速地创建一个独立的、生产级别的 Spring 应用； 特性：  快速创建独立 Spring 应用  直接嵌入Tomcat、Jetty or Undertow  提供可选的 starter，简化应用整合  按需自动配置 Spring 以及 第三方库  提供生产级特性：如 监控指标、健康检查、外部化配置等  无代码生成、无xml； 都是基于自动配置技术   场景启动器SpringBoot场景启动器：官方写的启动器命名：spring-boot-starter-*。第三方启动器命名：*-spring-boot-starter ​	作用：场景启动器负责把当前场景需要用的jar包都导入进来 ​	每个场景启动器都有一个基础依赖：spring-boot-starter 依赖管理为什么项目依赖不需要写版本号？—maven父子继承，父项目可以锁定版本。 父项目不管理的包都需要添加版本号 *自动配置基本理解 自动配置 导入场景，容器中就会自动配置好这个场景的核心组件。如 Tomcat、SpringMVC、DataSource...</div></div></div></a><a class="pagination-related" href="/2025/03/17/spring/" title="JAVA学习笔记-spring"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-spring</div></div><div class="info-2"><div class="info-item-1">简介spring是一个IoC和AOP框架 Spring的特性：  非侵入式：基于Spring开发的应用中的对象可以不依赖于Spring的API 依赖注入：DI（Dependency Injection）是反转控制（IoC：Inversion of Control）最经典的实现 面向切面编程：Aspect Oriented Programming ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" onerror="this.onerror=null;this.src='/null'" alt="avatar"/></div><div class="author-info-name">Muite</div><div class="author-info-description">keep learning</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">3</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mutesniper"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/mutesniper" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">分模块开发与设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">3.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E8%81%9A%E5%90%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">3.1.</span> <span class="toc-text">继承和聚合的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">4.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">4.2.</span> <span class="toc-text">内置属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">版本管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-number">6.</span> <span class="toc-text">资源配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%9C%8D"><span class="toc-number">7.</span> <span class="toc-text">私服</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/maven%E8%BF%9B%E9%98%B6/" title="JAVA学习笔记-maven进阶">JAVA学习笔记-maven进阶</a><time datetime="2025-03-17T13:12:34.000Z" title="Created 2025-03-17 21:12:34">2025-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/List/" title="JAVA学习笔记-集合(待更新)">JAVA学习笔记-集合(待更新)</a><time datetime="2025-03-17T04:46:00.000Z" title="Created 2025-03-17 12:46:00">2025-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/String/" title="JAVA学习笔记-String">JAVA学习笔记-String</a><time datetime="2025-03-17T04:46:00.000Z" title="Created 2025-03-17 12:46:00">2025-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/MyBatis/" title="JAVA学习笔记-MyBatis">JAVA学习笔记-MyBatis</a><time datetime="2025-03-17T04:46:00.000Z" title="Created 2025-03-17 12:46:00">2025-03-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/03/17/maven%E5%9F%BA%E7%A1%80/" title="JAVA学习笔记-maven基础">JAVA学习笔记-maven基础</a><time datetime="2025-03-17T04:46:00.000Z" title="Created 2025-03-17 12:46:00">2025-03-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Muite</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>
