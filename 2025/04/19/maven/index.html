@@ -1,0 +1,369 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>笔记-maven | Muite</title><meta name="author" content="Muite"><meta name="copyright" content="Muite"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons logging的jar包放入classpath。如果我们还需要log4j，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。 其次，我们要确定项目的目录结构。例如，src目录存放Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记-maven">
+<meta property="og:url" content="https://mutesniper.github.io/2025/04/19/maven/index.html">
+<meta property="og:site_name" content="Muite">
+<meta property="og:description" content="简介在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons logging的jar包放入classpath。如果我们还需要log4j，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。 其次，我们要确定项目的目录结构。例如，src目录存放Java">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg">
+<meta property="article:published_time" content="2025-04-19T04:46:00.000Z">
+<meta property="article:modified_time" content="2025-04-19T09:28:42.018Z">
+<meta property="article:author" content="Muite">
+<meta property="article:tag" content="note">
+<meta property="article:tag" content="Maven">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "笔记-maven",
+  "url": "https://mutesniper.github.io/2025/04/19/maven/",
+  "image": "https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg",
+  "datePublished": "2025-04-19T04:46:00.000Z",
+  "dateModified": "2025-04-19T09:28:42.018Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Muite",
+      "url": "https://mutesniper.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mutesniper.github.io/2025/04/19/maven/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '笔记-maven',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-footer-beautify@1.0.0/lib/runtime.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(/img/1990ee2c41564e328f35ac72f555f170.jpeg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" onerror="this.onerror=null;this.src='/null'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"></a><a class="nav-page-title" href="/"><span class="site-name">笔记-maven</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">笔记-maven</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-19T04:46:00.000Z" title="Created 2025-04-19 12:46:00">2025-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-04-19T09:28:42.018Z" title="Updated 2025-04-19 17:28:42">2025-04-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java-note/">java-note</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到<a target="_blank" rel="noopener" href="https://commons.apache.org/proper/commons-logging/">commons logging</a>，我们就必须把commons logging的jar包放入classpath。如果我们还需要<a target="_blank" rel="noopener" href="https://logging.apache.org/log4j/">log4j</a>，就需要把log4j相关的jar包都放到classpath中。这些就是依赖包的管理。</p>
+<p>其次，我们要确定项目的目录结构。例如，<code>src</code>目录存放Java源码，<code>resources</code>目录存放配置文件，<code>bin</code>目录存放编译生成的<code>.class</code>文件。</p>
+<p>此外，我们还需要配置环境，例如JDK的版本，编译打包的流程，当前代码的版本号。</p>
+<p>最后，除了使用Eclipse这样的IDE进行编译外，我们还必须能通过命令行工具进行编译，才能够让项目在一个独立的服务器上编译、测试、部署。</p>
+<p>这些工作难度不大，但是非常琐碎且耗时。如果每一个项目都自己搞一套配置，肯定会一团糟。我们需要的是一个标准化的Java项目管理和构建工具。</p>
+<p>Maven就是是专门为Java项目打造的管理和构建工具，它的主要功能有：</p>
+<ul>
+<li>提供了一套标准化的项目结构；</li>
+<li>提供了一套标准化的构建流程（编译，测试，打包，发布……）；</li>
+<li>提供了一套依赖管理机制。</li>
+</ul>
+<h2 id="Maven项目结构"><a href="#Maven项目结构" class="headerlink" title="Maven项目结构"></a>Maven项目结构</h2><p>一个使用Maven管理的普通的Java项目，它的目录结构默认如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a-maven-project</span><br><span class="line">├── pom.xml</span><br><span class="line">├── src</span><br><span class="line">│   ├── main</span><br><span class="line">│   │   ├── java</span><br><span class="line">│   │   └── resources</span><br><span class="line">│   └── test</span><br><span class="line">│       ├── java</span><br><span class="line">│       └── resources</span><br><span class="line">└── target</span><br></pre></td></tr></table></figure>
+
+<p>所有的目录结构都是约定好的标准结构，我们千万不要随意修改目录结构。使用标准结构不需要做任何配置，Maven就可以正常使用。</p>
+<h2 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h2><p>我们再来看最关键的一个项目描述文件<code>pom.xml</code>，它的内容长得像下面：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.itranswarp.learnjava<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">maven.compiler.release</span>&gt;</span>17<span class="tag">&lt;/<span class="name">maven.compiler.release</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-simple<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，<code>groupId</code>类似于Java的包名，通常是公司或组织名称，<code>artifactId</code>类似于Java的类名，通常是项目名称，再加上<code>version</code>，一个Maven工程就是由<code>groupId</code>，<code>artifactId</code>和<code>version</code>作为唯一标识。</p>
+<p>我们在引用其他第三方库的时候，也是通过这3个变量确定。例如，依赖<code>org.slfj4:slf4j-simple:2.0.16</code>：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-simple<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>&lt;dependency&gt;</code>声明一个依赖后，Maven就会自动下载这个依赖包并把它放到classpath中。</p>
+<p>另外，注意到<code>&lt;properties&gt;</code>定义了一些属性，常用的属性有：</p>
+<ul>
+<li><code>project.build.sourceEncoding</code>：表示项目源码的字符编码，通常应设定为<code>UTF-8</code>；</li>
+<li><code>maven.compiler.release</code>：表示使用的JDK版本，例如<code>21</code>；</li>
+<li><code>maven.compiler.source</code>：表示Java编译器读取的源码版本；</li>
+<li><code>maven.compiler.target</code>：表示Java编译器编译的Class版本。</li>
+</ul>
+<p>从Java 9开始，推荐使用<code>maven.compiler.release</code>属性，保证编译时输入的源码和编译输出版本一致。如果源码和输出版本不同，则应该分别设置<code>maven.compiler.source</code>和<code>maven.compiler.target</code>。</p>
+<p>通过<code>&lt;properties&gt;</code>定义的属性，就可以固定JDK版本，防止同一个项目的不同的开发者各自使用不同版本的JDK。</p>
+<h1 id="常用项目构建指令"><a href="#常用项目构建指令" class="headerlink" title="常用项目构建指令"></a>常用项目构建指令</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mvn compile  编译</span><br><span class="line">mvn clean    清理</span><br><span class="line">mvn test     测试</span><br><span class="line">mvn package  打包</span><br><span class="line">mvn install  安装到本地仓库</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h1><h2 id="依赖配置"><a href="#依赖配置" class="headerlink" title="依赖配置"></a>依赖配置</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependencies&gt;</span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;3.8.1&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br><span class="line">&lt;/dependencies&gt;</span><br></pre></td></tr></table></figure>
+
+<p>添加依赖</p>
+<h2 id="依赖传递"><a href="#依赖传递" class="headerlink" title="依赖传递"></a>依赖传递</h2><p>我们声明了自己的项目需要<code>abc</code>，Maven会自动导入<code>abc</code>的jar包，再判断出<code>abc</code>需要<code>xyz</code>，又会自动导入<code>xyz</code>的jar包，这样，最终我们的项目会依赖<code>abc</code>和<code>xyz</code>两个jar包。</p>
+<h2 id="可选依赖"><a href="#可选依赖" class="headerlink" title="可选依赖"></a>可选依赖</h2><p>可选依赖指对外隐藏当前所依赖的资源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;optional&gt;true&lt;/optional&gt;</span><br><span class="line">写在&lt;dependency&gt;&lt;/dependency&gt;中</span><br></pre></td></tr></table></figure>
+
+<p>比如将项目二添加为项目一的依赖，项目二依赖了junit，但是给junit添加了<code>&lt;optional&gt;true&lt;/optional&gt;</code> ,那么项目一就不知道项目二依赖了junit。</p>
+<h2 id="排除依赖"><a href="#排除依赖" class="headerlink" title="排除依赖"></a>排除依赖</h2><p>主动断开依赖的资源</p>
+<p>项目一依赖了项目二，项目二依赖了junit，但是项目一不需要junit。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;exclusions&gt;</span><br><span class="line">	&lt;exclusion&gt;</span><br><span class="line">		&lt;groupId&gt;junit&lt;/groupId&gt;</span><br><span class="line">    	&lt;artifactId&gt;junit&lt;/artifactId&gt;</span><br><span class="line">	&lt;/exclusion&gt;</span><br><span class="line">&lt;/exclusions&gt;</span><br><span class="line">写在&lt;dependency&gt;&lt;/dependency&gt;中</span><br></pre></td></tr></table></figure>
+
+<p>在项目一的xml中，将以上代码写入关于项目二的依赖配置</p>
+<h2 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h2><p>依赖的jar默认情况可以在任何地方使用，可以通过scope标签设定其作用范围。</p>
+<p>作用范围：</p>
+<ul>
+<li>主程序范围有效（main文件夹范围内）</li>
+<li>测试程序范围有效（test文件夹范围内）</li>
+<li>是否参与打包（package指令范围内）</li>
+</ul>
+<img src="../assets/屏幕截图 2025-03-05 104721.png" alt="屏幕截图 2025-03-05 104721" style="zoom:75%;" />
+
+
+
+<h3 id="依赖范围的传递性-了解"><a href="#依赖范围的传递性-了解" class="headerlink" title="依赖范围的传递性(了解)"></a>依赖范围的传递性(了解)</h3><p>比如在项目二中将mybatis依赖设置一个scope，那么在项目一中把项目二添加为依赖，在项目一中mybatis的scope如下表：</p>
+<img src="../assets/屏幕截图 2025-03-05 105041.png" alt="屏幕截图 2025-03-05 105041" style="zoom:75%;" />
+
+
+
+<h1 id="生命周期与插件"><a href="#生命周期与插件" class="headerlink" title="生命周期与插件"></a>生命周期与插件</h1><h2 id="项目构建生命周期"><a href="#项目构建生命周期" class="headerlink" title="项目构建生命周期"></a>项目构建生命周期</h2><p>maven对项目构建的生命周期划分为三套：</p>
+<ul>
+<li>clean：清理工作</li>
+<li>default：核心工作，例如编译，测试，打包，部署等</li>
+<li>site：产生报告，发布站点等</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mvn compile  编译</span><br><span class="line">mvn clean    清理</span><br><span class="line">mvn test     测试</span><br><span class="line">mvn package  打包</span><br><span class="line">mvn install  安装到本地仓库</span><br></pre></td></tr></table></figure>
+
+<p>当执行以上指令时，Maven就会开始生命周期，它会从开始一直运行到插件对应的phase为止。</p>
+<p>如果运行<code>mvn clean package</code>，Maven先执行<code>clean</code>生命周期并运行到<code>clean</code>这个phase，然后执行<code>default</code>生命周期并运行到<code>package</code>这个phase。</p>
+<p>在实际开发过程中，经常使用的命令有：</p>
+<p><code>mvn clean</code>：清理所有生成的class和jar；</p>
+<p><code>mvn clean compile</code>：先清理，再执行到<code>compile</code>；</p>
+<p><code>mvn clean test</code>：先清理，再执行到<code>test</code>，因为执行<code>test</code>前必须执行<code>compile</code>，所以这里不必指定<code>compile</code>；</p>
+<p><code>mvn clean package</code>：先清理，再执行到<code>package</code>。</p>
+<p>大多数phase在执行过程中，因为我们通常没有在<code>pom.xml</code>中配置相关的设置，所以这些phase什么事情都不做。</p>
+<p>经常用到的phase其实只有几个：</p>
+<ul>
+<li>clean：清理</li>
+<li>compile：编译</li>
+<li>test：运行测试</li>
+<li>package：打包</li>
+</ul>
+<p>执行一个phase又会触发一个或多个goal：</p>
+<table>
+<thead>
+<tr>
+<th>执行的Phase</th>
+<th>对应执行的Goal</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>compile</td>
+<td>compiler:compile</td>
+</tr>
+<tr>
+<td>test</td>
+<td>compiler:testCompile surefire:test</td>
+</tr>
+</tbody></table>
+<ul>
+<li>lifecycle相当于Java的package，它包含一个或多个phase；</li>
+<li>phase相当于Java的class，它包含一个或多个goal；</li>
+<li>goal相当于class的method，它其实才是真正干活的。</li>
+</ul>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><ul>
+<li>插件与生命周期内的阶段绑定，在执行到对应生命周期时插件执行对应的插件功能</li>
+<li>默认maven在各个生命周期上绑定有预设的功能</li>
+<li>通过插件可以自定义其他的功能</li>
+</ul>
+<h1 id="分模块开发与设计"><a href="#分模块开发与设计" class="headerlink" title="分模块开发与设计"></a>分模块开发与设计</h1><p>分模块将我们之前SSM中所做的项目分解为多个模块，每个模块专注于完成某一组相关的功能或职责。比如分成pojo、controller、service、dao。（仅举例）</p>
+<p><strong>模块间通过接口相互作用</strong></p>
+<p>分模块的母的是提高代码的可维护性、复用性和可测试性</p>
+<p>特点：</p>
+<ul>
+<li>高内聚低耦合：模块内功能紧密相关，模块间的依赖尽可能少</li>
+<li>代码重用：模块可以在不同的项目中重复使用</li>
+<li>易于维护：模块化的结构使得代码更容易理解和维护</li>
+</ul>
+<h1 id="聚合"><a href="#聚合" class="headerlink" title="聚合"></a>聚合</h1><p>如果将各个模块独立，那么在一个模块进行改动时，其他模块不一定能适应它的修改。于是我们用聚合的思想，用一个额外的模块将其余模块都管理起来，对子模块统一操作(编译、打包等)，这个模块不需要写代码，只要pom.xml。</p>
+<p>聚合不仅可以解决上述问题，还能够快速地构建maven工程。</p>
+<p>方法：</p>
+<ul>
+<li><p>我们给这个模块的<code>pom.xml</code>文件中加上：<code>&lt;packaging&gt;pom&lt;/packaging&gt;</code>，表示这个模块专门用来管理，只提供pom.xml文件。</p>
+</li>
+<li><p>再用<code>&lt;module&gt;模块名&lt;/module&gt;</code>，将剩余模块管理起来。再将所有<code>&lt;module&gt;&lt;/module&gt;</code>用<code>&lt;modules&gt;&lt;/modules&gt;</code>包起来</p>
+</li>
+</ul>
+<h1 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h1><p>如果模块之间使用的依赖版本不同，容易出现不兼容的情况。</p>
+<p>于是我们用一个父模块将所有模块需要的依赖管理起来：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependenties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	...</span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>即只需要在<dependenties>外套一层<dependencyManagement>。</p>
+<p>在父模块中写明版本，那么子模块在用的时候就只需要声名需要的依赖，而不需要具体到它的版本了。</p>
+<p>不仅是依赖，插件也是如此：只要用<pluginManagement>标签将<plugins>标签包起来即可</p>
+<p>当然，还要让父子模块联系起来：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span><span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactedId</span>&gt;</span><span class="tag">&lt;/<span class="name">artifactedId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span><span class="tag">&lt;/<span class="name">version</span>&gt;</span> <span class="comment">&lt;!--这里是父模块的version，不是依赖的version --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>父模块的pom文件路径<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>虽然继承和聚合的父工程可以使用两个不同的模块，但是还是用一个父模块统一管理。</p>
+<h2 id="继承和聚合的区别"><a href="#继承和聚合的区别" class="headerlink" title="继承和聚合的区别"></a>继承和聚合的区别</h2><p>最重要的一点：继承是继承父模块的配置信息；聚合是用来快速构建的。</p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><h2 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h2><p>格式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>5.1.9<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">	...</span><br><span class="line">	...</span><br><span class="line">	&lt;version&gt;$&#123;spring.version&#125;&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="内置属性"><a href="#内置属性" class="headerlink" title="内置属性"></a>内置属性</h2><p>在pom.xml中有一些内置属性，不需要自定义配置</p>
+<p>调用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$&#123;version&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h1><ul>
+<li><p>SNAPSHOT:快照版</p>
+</li>
+<li><p>RELEASE：发布版本</p>
+</li>
+<li><p>不同企业用的可能不同</p>
+</li>
+</ul>
+<h1 id="资源配置"><a href="#资源配置" class="headerlink" title="资源配置"></a>资源配置</h1><p>上面的&lt;属性&gt;中已经讲了pom.xml调用自定义的属性。</p>
+<p>那么现在要让properties调用pom.xml定义的属性，如下来做：（以jdbc.url为例）</p>
+<ul>
+<li><p>还是先把jdbc.url写入<properties>标签中</p>
+</li>
+<li><p>使配置文件能够加载pom属性：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">resource</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">directory</span>&gt;</span>resources文件夹所在路径<span class="tag">&lt;/<span class="name">directory</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">filtering</span>&gt;</span>true<span class="tag">&lt;/<span class="name">filtering</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">resource</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用格式还是${jdbc.url}</p>
+</li>
+</ul>
+<h1 id="私服"><a href="#私服" class="headerlink" title="私服"></a>私服</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://mutesniper.github.io">Muite</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://mutesniper.github.io/2025/04/19/maven/">https://mutesniper.github.io/2025/04/19/maven/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/note/">note</a><a class="post-meta__tags" href="/tags/Maven/">Maven</a></div><div class="post-share"><div class="social-share" data-image="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/19/redis%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E5%8F%8A%E5%8E%9F%E7%90%86/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">Redis最佳实践Redis键值设计key结构Redis的key虽然可以自定义，但最好遵循下面几个最佳实践约定  遵循基本格式：[业务名称]：[数据名]：[id] 不包含特殊字符  拒绝BigKeyBigKey的定义（不绝对）     BigKey的危害：   发现BigKey：   删除bigkey: 非字符串的bigkey，不要使用del删除，而是使用hscan、sscan、zscan方式渐进式删除。 同时要防止bigkey过期时间自动删除问题（比如200万的zset设置1小时过期，会触发del操作，造成阻塞）  String：一般用del，如果过于庞大用unlink UNLINK 是 Redis 中用于异步删除键的一个命令，它在 Redis 4.0 版本中被引入。与传统的 DEL 命令不同，UNLINK 不会阻塞 Redis 主线程来执行键的删除操作，而是将键的删除任务放到后台线程池中异步处理。这使得 UNLINK 在处理大键（Bigkey）或需要大量时间来删除的键时特别有用，因为它可以显著减少对 Redis 性能的影响。   对于list、set、hash、sorted...</div></div></div></a><a class="pagination-related" href="/2025/04/19/redis%E8%A1%A5%E5%85%85/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">Redis事务在 Redis 中，事务通过 MULTI、EXEC、DISCARD 和 WATCH 四个命令来实现。Redis 的事务允许以原子方式执行一系列命令，这意味着这些命令要么全部执行成功，要么一个也不执行。  MULTI：标记事务的开始。之后的所有命令将不会立即执行，而是被放入队列中。 EXEC：执行所有在 MULTI 后面入队的命令，并且以原子的方式执行。如果在这个过程中有命令出错，则其他命令仍然会被执行，但是错误的命令不会被执行。 DISCARD：清除队列中的所有命令，并退出事务状态。 WATCH：用于检测键是否被修改。如果在 WATCH 之后和 EXEC 之前，某个被 WATCH 的键被修改了，那么整个事务将会失败（即 EXEC 返回空响应）。可以使用UNWATCH取消  Redis 事务不支持回滚机制，这意味着一旦事务中的命令开始执行，即使后续命令出现错误，之前的命令也不会被撤销。 Redis事务和MySQL事务的区别：  原子性 Redis: Redis...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/04/19/String/" title="笔记-String"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">笔记-String</div></div><div class="info-2"><div class="info-item-1">String:特性： 内容不会发生改变，它的对象在创建后不能被更改。如果进行修改则会创建一个新的字符串变量。 由于String对象不可变，所以它是线程安全的。  创建方法： 直接赋值： 1String name=&quot;... &quot;;  构造方法： 1234public String()public String(String original)public String(char[] chs)public String (byte[] chs)  方法： 获取长度：1str.length() 查找子串:1234//返回第一个指定字串的索引str.indexOf...</div></div></div></a><a class="pagination-related" href="/2025/04/19/MyBatis/" title="笔记-MyBatis"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">笔记-MyBatis</div></div><div class="info-2"><div class="info-item-1">简介MyBatis是持久层框架（和数据库进行交互的框架） MyBatis 不像 Hibernete 等这些全自动框架，它把关键的SQL部分交给程序员自己编写，而不是自动生成  HelloWorld步骤：  导入mybatis依赖  配置数据源  编写javabean对应数据库一个表模型  以前：Dao接口–&gt;Dao实现  。–&gt;标注@Repository注解 现在：Mapper接口–&gt;Mapper.xml实现 ,–&gt;标注@Mapper注解 （安装mybatisx插件自动为mapper类生成mapper文件，我们只需要在mapper文件中配置方法的sql语句）  告诉mybatis去哪里找mapper文件：mybatis.mapper-locations=classpath:mapper/**.xml   mapper接口： 1234@Mapper //告诉spring，这是MyBatis操作数据库用的接口public interface EmpMapper &#123;    Emp getEmpById(Integer...</div></div></div></a><a class="pagination-related" href="/2025/03/17/maven%E5%9F%BA%E7%A1%80/" title="JAVA学习笔记-maven基础"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-17</div><div class="info-item-2">JAVA学习笔记-maven基础</div></div><div class="info-2"><div class="info-item-1">简介在了解Maven之前，我们先来看看一个Java项目需要的东西。首先，我们需要确定引入哪些依赖包。例如，如果我们需要用到commons logging，我们就必须把commons...</div></div></div></a><a class="pagination-related" href="/2025/04/19/git/" title="笔记-git"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">笔记-git</div></div><div class="info-2"><div class="info-item-1">简介Git: 一个分布式版本控制系统 集中式vs分布式：  集中式: 版本库集中存放在中央服务器，使用时，从中央服务器获取最新的版本，修改完后，再推送给中央服务器。且集中式版本控制系统必须联网才能工作，不方便。 分布式：每个人的电脑都有一个完整的版本库，所以工作时不需要联网。将仓库进行同步就可以完成多人协作，但其实并不常用这种方法，而是通过一台充当“中央服务器”的电脑来方便“交换”大家的修改，没有它大家也一样干活，只是交换修改不方便而已。  Git安装Linux 下安装输入git,查看是否已经安装Git: 123$ gitThe program &#x27;git&#x27; is currently not installed. You can install it by typing:sudo apt-get install git  像上面的命令，有很多Linux会友好地告诉你Git没有安装，还会告诉你如何安装Git。 如果碰巧用Debian或Ubuntu Linux，通过一条sudo apt-get install...</div></div></div></a><a class="pagination-related" href="/2025/04/19/springboot/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">简介SpringBoot 帮我们简单、快速地创建一个独立的、生产级别的 Spring 应用； 特性：  快速创建独立 Spring 应用  直接嵌入Tomcat、Jetty or Undertow  提供可选的 starter，简化应用整合  按需自动配置 Spring 以及 第三方库  提供生产级特性：如 监控指标、健康检查、外部化配置等  无代码生成、无xml； 都是基于自动配置技术   场景启动器SpringBoot场景启动器：官方写的启动器命名：spring-boot-starter-*。第三方启动器命名：*-spring-boot-starter ​	作用：场景启动器负责把当前场景需要用的jar包都导入进来 ​	每个场景启动器都有一个基础依赖：spring-boot-starter 依赖管理为什么项目依赖不需要写版本号？—maven父子继承，父项目可以锁定版本。 父项目不管理的包都需要添加版本号 *自动配置基本理解 自动配置 导入场景，容器中就会自动配置好这个场景的核心组件。如 Tomcat、SpringMVC、DataSource...</div></div></div></a><a class="pagination-related" href="/2025/04/19/spring/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2"></div></div><div class="info-2"><div class="info-item-1">简介spring是一个IoC和AOP框架 Spring的特性：  非侵入式：基于Spring开发的应用中的对象可以不依赖于Spring的API 依赖注入：DI（Dependency Injection）是反转控制（IoC：Inversion of Control）最经典的实现 面向切面编程：Aspect Oriented Programming ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://img.alicdn.com/bao/uploaded/i3/2200690044395/O1CN012NL22Q1iKxHYWb17f_!!2200690044395.jpg" onerror="this.onerror=null;this.src='/null'" alt="avatar"/></div><div class="author-info-name">Muite</div><div class="author-info-description">keep learning</div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">23</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">12</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/mutesniper"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/mutesniper" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Maven%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">Maven项目结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml"><span class="toc-number">1.2.</span> <span class="toc-text">pom.xml</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%8C%87%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">常用项目构建指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">依赖管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">依赖配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E4%BC%A0%E9%80%92"><span class="toc-number">3.2.</span> <span class="toc-text">依赖传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E4%BE%9D%E8%B5%96"><span class="toc-number">3.3.</span> <span class="toc-text">可选依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E9%99%A4%E4%BE%9D%E8%B5%96"><span class="toc-number">3.4.</span> <span class="toc-text">排除依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4"><span class="toc-number">3.5.</span> <span class="toc-text">依赖范围</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4%E7%9A%84%E4%BC%A0%E9%80%92%E6%80%A7-%E4%BA%86%E8%A7%A3"><span class="toc-number">3.5.1.</span> <span class="toc-text">依赖范围的传递性(了解)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E6%8F%92%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">生命周期与插件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">4.1.</span> <span class="toc-text">项目构建生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%92%E4%BB%B6"><span class="toc-number">4.2.</span> <span class="toc-text">插件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%86%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91%E4%B8%8E%E8%AE%BE%E8%AE%A1"><span class="toc-number">5.</span> <span class="toc-text">分模块开发与设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%81%9A%E5%90%88"><span class="toc-number">6.</span> <span class="toc-text">聚合</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-number">7.</span> <span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF%E5%92%8C%E8%81%9A%E5%90%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">7.1.</span> <span class="toc-text">继承和聚合的区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-number">8.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="toc-number">8.1.</span> <span class="toc-text">自定义属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="toc-number">8.2.</span> <span class="toc-text">内置属性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">9.</span> <span class="toc-text">版本管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="toc-number">10.</span> <span class="toc-text">资源配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%81%E6%9C%8D"><span class="toc-number">11.</span> <span class="toc-text">私服</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/19/spring%20security/" title="Untitled">Untitled</a><time datetime="2025-04-19T09:22:50.057Z" title="Created 2025-04-19 17:22:50">2025-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/19/MySQL%E8%BF%9B%E9%98%B6/" title="Untitled">Untitled</a><time datetime="2025-04-19T09:22:50.048Z" title="Created 2025-04-19 17:22:50">2025-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/19/String/" title="笔记-String">笔记-String</a><time datetime="2025-04-19T04:46:00.000Z" title="Created 2025-04-19 12:46:00">2025-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/19/MyBatis/" title="笔记-MyBatis">笔记-MyBatis</a><time datetime="2025-04-19T04:46:00.000Z" title="Created 2025-04-19 12:46:00">2025-04-19</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/04/19/git/" title="笔记-git">笔记-git</a><time datetime="2025-04-19T04:46:00.000Z" title="Created 2025-04-19 12:46:00">2025-04-19</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 By Muite</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_footer_beautify_injector_config(){
+    var parent_div_git = document.getElementById('footer-wrap');
+    var item_html = '<div id="workboard"></div><p id="ghbdages"><a class="github-badge" target="_blank" href="https://hexo.io/" style="margin-inline:5px" data-title="博客框架为Hexo_v6.2.0" title=""><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&amp;logo=hexo" alt=""/></a><a class="github-badge" target="_blank" href="https://butterfly.js.org/" style="margin-inline:5px" data-title="主题版本Butterfly_v4.3.1" title=""><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&amp;logo=bitdefender" alt=""/></a><a class="github-badge" target="_blank" href="https://github.com/" style="margin-inline:5px" data-title="本站项目由Github托管" title=""><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&amp;logo=GitHub" alt=""/></a><a class="github-badge" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" style="margin-inline:5px" data-title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可" title=""><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&amp;logo=Claris" alt=""/></a></p>';
+    console.log('已挂载butterfly_footer_beautify')
+    parent_div_git.insertAdjacentHTML("beforeend",item_html)
+    }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_footer_beautify_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_footer_beautify_injector_config();
+  }
+  </script><script async src="/js/runtime.js"></script><!-- hexo injector body_end end --></body></html>
